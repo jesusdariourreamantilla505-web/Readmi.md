@@ -1,0 +1,30 @@
+from pathlib import Path
+
+# Obtener la carpeta donde está este programa
+carpeta = Path(__file__).parent
+
+# Archivo de entrada correcto
+ruta_entrada = carpeta / "mbox.txt"
+
+# Archivo de salida
+ruta_salida = carpeta / "mensajes_enviados.txt"
+
+correos = []
+
+# Leer correos
+with open(ruta_entrada, "r", encoding="utf-8") as archivo:
+    for linea in archivo:
+        if linea.startswith("From:"):
+            correo = linea.split()[1]
+            correos.append(correo)
+
+# Guardar mensajes enviados
+with open(ruta_salida, "w", encoding="utf-8") as archivo_salida:
+    for correo in reversed(correos):
+        archivo_salida.write(correo + " enviado [OK]\n")
+
+# Mostrar resultados
+for correo in reversed(correos):
+    print(correo + " enviado [OK]")
+
+print("Proceso terminado correctamente.")
